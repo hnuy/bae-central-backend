@@ -86,12 +86,13 @@ exports.upload = async (req, res) => {
       const getTryoutParts = await db.tryoutparts.findAll()
       const result = data.map((e) => {
         const partNO = e[7].trim()
+        const deliveryDate = e[24].toString().split("/").reverse().join("/")
         return {
           partNO,
           partName: getTryoutParts
             .filter((e) => e.dataValues.partNO === partNO)
             .map((e) => e.partName)[0],
-          deliveryDate: e[24],
+          deliveryDate,
           quantity: parseFloat(e[8], 2),
           workGroup: e[13],
           receiveArea: e[10],

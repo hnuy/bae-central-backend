@@ -8,8 +8,5 @@ module.exports = (app) => {
     )
     next()
   })
-
-  app.get("/get/tryoutparts", tryoutparts.allData)
-  app.get("/get/generateGreenTag", tryoutparts.generateGreenTag)
   app.post("/get/upload", tryoutparts.upload)
 }
