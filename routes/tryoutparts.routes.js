@@ -9,4 +9,5 @@ module.exports = (app) => {
     next()
   })
   app.post("/get/upload", tryoutparts.upload)
+  app.post("/post/createMat", tryoutparts.insertMat)
 }

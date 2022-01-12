@@ -33,7 +33,7 @@ exports.upload = async (req, res) => {
       const getTryoutParts = await db.tryoutparts.findAll()
       const result = data.map((e) => {
         const partNO = e[7].trim()
-        const deliveryDate = e[24].toString().split("/").reverse().join("/")
+        const deliveryDate = e[5].toString().split("/").reverse().join("/")
         return {
           partNO,
           partName: getTryoutParts
@@ -51,7 +51,23 @@ exports.upload = async (req, res) => {
             .map((e) => e.CL)[0],
         }
       })
+      result.pop()
+      fs.unlinkSync(newPath2)
       res.send(result)
     })
   })
+}
+
+exports.insertMat = async (req, res) => {
+  try {
+    const data = await db.tryoutparts.create({
+      partNO: req.body.partNO,
+      partName: req.body.partName,
+      EO: req.body.EO,
+      CL: req.body.CL,
+    })
+    res.send(data)
+  } catch (error) {
+    res.send(error.errors[0].message)
+  }
 }
