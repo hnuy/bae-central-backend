@@ -5,6 +5,7 @@ const { FILE_TEXT } = require("../assets/constants")
 const readline = require("readline")
 
 exports.upload = async (req, res) => {
+  const filterDate = req.query.date
   const form = new formidable.IncomingForm()
   form.parse(req, async function (err, fields, files) {
     var oldPath = files.file.filepath
@@ -33,7 +34,8 @@ exports.upload = async (req, res) => {
       const getTryoutParts = await db.tryoutparts.findAll()
       const result = data.map((e) => {
         const partNO = e[7].trim()
-        const deliveryDate = e[5].toString().split("/").reverse().join("/")
+        const date = e[5].toString().split("/").reverse().join("/")
+        const deliveryDate = date === filterDate ? filterDate : date
         return {
           partNO,
           partName: getTryoutParts
@@ -52,8 +54,12 @@ exports.upload = async (req, res) => {
         }
       })
       result.pop()
+      if (filterDate) {
+        res.send(result.filter((e) => e.deliveryDate === filterDate))
+      } else {
+        res.send(result)
+      }
       fs.unlinkSync(newPath2)
-      res.send(result)
     })
   })
 }
