@@ -15,8 +15,17 @@ db.sequelize.sync()
 app.get("/", function (req, res) {
   res.send("Hello World")
 })
+
+app.get("/get/partNO", async function (req, res) {
+  try {
+    const data = await db.tryoutparts.findAll()
+    res.send(data.map((e) => e.dataValues).map((e) => e.partNO))
+  } catch (error) {
+    res.send(error.errors[0].message)
+  }
+})
 require("./routes/tryoutparts.routes")(app)
 
-app.listen(3003, (req, res) => {
+app.listen(3004, (req, res) => {
   console.log("Server is up and listening on 3003")
 })

@@ -1,14 +1,27 @@
-const db = require("../model")
+const serverless = require("serverless-http")
+const express = require("express")
+const app = express()
+
+var bodyParser = require("body-parser")
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
+
+var cors = require("cors")
+app.use(cors())
+
+const db = require("./model")
+
+db.sequelize.sync()
+
 const fs = require("fs")
 var formidable = require("formidable")
-const { FILE_TEXT } = require("../assets/constants")
-const readline = require("readline")
 
-exports.upload = async (req, res) => {
+app.get("/", function (req, res) {
+  res.send("Hello World")
+})
+
+app.post("/upload", (req, res) => {
   const filterDate = req.query.date
-  const follow = req.query.follow
-  const partNO = req.query.partNO
-  console.log(req)
   const form = new formidable.IncomingForm()
   form.parse(req, async function (err, fields, files) {
     fs.readFile(files.file.filepath, "utf8", async (err, datafile) => {
@@ -37,7 +50,6 @@ exports.upload = async (req, res) => {
           quantity: parseFloat(e[8], 2),
           workGroup: e[13],
           receiveArea: e[10],
-          follow: e[11],
           EO: getTryoutParts
             .filter((e) => e.dataValues.partNO === partNO)
             .map((e) => e.EO)[0],
@@ -47,19 +59,14 @@ exports.upload = async (req, res) => {
         }
       })
       result.pop()
-      if (filterDate && follow && partNO) {
+      if (filterDate) {
         res.send(result.filter((e) => e.deliveryDate === filterDate))
-      } else if (filterDate && partNO) {
-        res.send(result.filter((e) => e.deliveryDate === filterDate))
-      } else if (partNO) {
-        console.log("aaaaaaaaaaaaa", partNO)
-        res.send(result.filter((e) => e.partNO === partNO))
       } else {
         res.send(result)
       }
     })
   })
-}
+})
 const processLineByLine = async (rows) => {
   let arr = []
   for (const line of rows) {
@@ -68,16 +75,4 @@ const processLineByLine = async (rows) => {
   return arr
 }
 
-exports.insertMat = async (req, res) => {
-  try {
-    const data = await db.tryoutparts.create({
-      partNO: req.body.partNO,
-      partName: req.body.partName,
-      EO: req.body.EO,
-      CL: req.body.CL,
-    })
-    res.send(data)
-  } catch (error) {
-    res.send(error.errors[0].message)
-  }
-}
+module.exports.handler = serverless(app)

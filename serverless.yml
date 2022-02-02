@@ -1,0 +1,24 @@
+# serverless.yml
+
+service: greentag
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  stage: dev
+  region: ap-southeast-1
+
+# package:
+#   patterns:
+#     - "!node_modules/**" # no need to add this, this plugin does it for you
+
+# plugins:
+#   - serverless-plugin-include-dependencies
+
+functions:
+  app:
+    handler: index.handler
+    events:
+      - httpApi:
+          path: /{proxy}
+          method: post
