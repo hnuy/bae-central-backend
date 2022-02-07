@@ -1,14 +1,10 @@
 const db = require("../model")
 const fs = require("fs")
 var formidable = require("formidable")
-const { FILE_TEXT } = require("../assets/constants")
-const readline = require("readline")
 
 exports.upload = async (req, res) => {
   const filterDate = req.query.date
-  const follow = req.query.follow
   const partNO = req.query.partNO
-  console.log(req)
   const form = new formidable.IncomingForm()
   form.parse(req, async function (err, fields, files) {
     fs.readFile(files.file.filepath, "utf8", async (err, datafile) => {
@@ -37,7 +33,6 @@ exports.upload = async (req, res) => {
           quantity: parseFloat(e[8], 2),
           workGroup: e[13],
           receiveArea: e[10],
-          follow: e[11],
           EO: getTryoutParts
             .filter((e) => e.dataValues.partNO === partNO)
             .map((e) => e.EO)[0],
@@ -47,12 +42,15 @@ exports.upload = async (req, res) => {
         }
       })
       result.pop()
-      if (filterDate && follow && partNO) {
-        res.send(result.filter((e) => e.deliveryDate === filterDate))
-      } else if (filterDate && partNO) {
+      if (filterDate && partNO) {
+        res.send(
+          result.filter(
+            (e) => e.deliveryDate === filterDate && e.partNO === partNO
+          )
+        )
+      } else if (filterDate) {
         res.send(result.filter((e) => e.deliveryDate === filterDate))
       } else if (partNO) {
-        console.log("aaaaaaaaaaaaa", partNO)
         res.send(result.filter((e) => e.partNO === partNO))
       } else {
         res.send(result)
