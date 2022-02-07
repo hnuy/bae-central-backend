@@ -20,8 +20,18 @@ app.get("/", function (req, res) {
   res.send("Hello World")
 })
 
+app.get("/partno", async function (req, res) {
+  try {
+    const data = await db.tryoutparts.findAll()
+    res.send(data.map((e) => e.partNO))
+  } catch (error) {
+    res.send(error)
+  }
+})
+
 app.post("/upload", (req, res) => {
   const filterDate = req.query.date
+  const partNO = req.query.partNO
   const form = new formidable.IncomingForm()
   form.parse(req, async function (err, fields, files) {
     fs.readFile(files.file.filepath, "utf8", async (err, datafile) => {
@@ -59,8 +69,16 @@ app.post("/upload", (req, res) => {
         }
       })
       result.pop()
-      if (filterDate) {
+      if (filterDate && partNO) {
+        res.send(
+          result.filter(
+            (e) => e.deliveryDate === filterDate && e.partNO === partNO
+          )
+        )
+      } else if (filterDate) {
         res.send(result.filter((e) => e.deliveryDate === filterDate))
+      } else if (partNO) {
+        res.send(result.filter((e) => e.partNO === partNO))
       } else {
         res.send(result)
       }
