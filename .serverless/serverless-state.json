@@ -173,7 +173,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/greentag/dev/1674640820934-2023-01-25T10:00:20.934Z/greentag.zip"
+                "S3Key": "serverless/greentag/dev/1674644273054-2023-01-25T10:57:53.054Z/greentag.zip"
               },
               "Handler": "index.handler",
               "Runtime": "nodejs12.x",
@@ -191,14 +191,14 @@
               "AppLogGroup"
             ]
           },
-          "AppLambdaVersionsG4JWTE10rRhSKTXWGrP4nNOOhNzH32cuGtBr1mHjYA": {
+          "AppLambdaVersionQ7LsyiG7DJZggO6Xj98aUqwqUTtvWN9teQP1wzxMyc": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "AppLambdaFunction"
               },
-              "CodeSha256": "NBpxnSPTH0KXkW3+v7Grpsup8G37lgWFM/eBRLltqXg="
+              "CodeSha256": "vVmNJaNkyvH3cjUS2xHxV4G9OWz7i/xtqf3g6KZOTzA="
             }
           },
           "HttpApi": {
@@ -306,7 +306,7 @@
           "AppLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "AppLambdaVersionsG4JWTE10rRhSKTXWGrP4nNOOhNzH32cuGtBr1mHjYA"
+              "Ref": "AppLambdaVersionQ7LsyiG7DJZggO6Xj98aUqwqUTtvWN9teQP1wzxMyc"
             },
             "Export": {
               "Name": "sls-greentag-dev-AppLambdaFunctionQualifiedArn"
@@ -452,7 +452,7 @@
         "timeout": 6,
         "runtime": "nodejs12.x",
         "vpc": {},
-        "versionLogicalId": "AppLambdaVersionsG4JWTE10rRhSKTXWGrP4nNOOhNzH32cuGtBr1mHjYA"
+        "versionLogicalId": "AppLambdaVersionQ7LsyiG7DJZggO6Xj98aUqwqUTtvWN9teQP1wzxMyc"
       }
     },
     "configValidationMode": "warn",
@@ -468,10 +468,10 @@
     },
     "layers": {},
     "isDashboardMonitoringPreconfigured": false,
-    "artifact": "C:\\Users\\Jeffy\\OneDrive\\เดสก์ท็อป\\Work\\bae-central-back\\bae-central-backend\\.serverless\\greentag.zip"
+    "artifact": "C:\\Users\\hnuys\\OneDrive\\Desktop\\BAE APP\\bae-central-backend\\.serverless\\greentag.zip"
   },
   "package": {
-    "artifactDirectoryName": "serverless/greentag/dev/1674640820934-2023-01-25T10:00:20.934Z",
+    "artifactDirectoryName": "serverless/greentag/dev/1674644273054-2023-01-25T10:57:53.054Z",
     "artifact": "greentag.zip"
   }
 }

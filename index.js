@@ -23,12 +23,28 @@ app.get("/", function (req, res) {
 app.get("/partno", async function (req, res) {
   try {
     const data = await db.tryoutparts.findAll()
-    res.send(data.map((e) => e.partNo))
+    res.send(data)
   } catch (error) {
     res.send(error)
   }
 })
-
+app.get("/get/partNO", async function (req, res) {
+  try {
+    const data = await db.tryoutparts.findAll()
+    res.send(data)
+  } catch (error) {
+    res.send(error.errors[0].message)
+  }
+})
+app.get("/materials", async function (req, res) {
+  try {
+    const data = await db.material.findAll()
+    res.send(data)
+    // res.send(data.map((e) => e.dataValues).map((e) => e.partNO))
+  } catch (error) {
+    res.send(error.message)
+  }
+})
 app.post("/upload", (req, res) => {
   const filterDate = req.query.date
   const partNO = req.query.partNO
