@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
   }
   tryoutparts.init(
     {
-      partNO: DataTypes.STRING,
+      partNo: DataTypes.STRING,
       partName: DataTypes.STRING,
       EO: DataTypes.STRING,
       CL: DataTypes.STRING,

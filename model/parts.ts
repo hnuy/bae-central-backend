@@ -1,18 +1,22 @@
-const { Model } = require("sequelize")
-module.exports = (sequelize, DataTypes) => {
+import { Sequelize, Model } from "sequelize"
+
+module.exports = (
+  sequelize: Sequelize,
+  DataTypes: { STRING: string; FLOAT: any; INTEGER: any }
+) => {
   class parts extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
-    static associate(models) {
+    static associate(models: Sequelize) {
       // define association here
     }
   }
   parts.init(
     {
-      partNO: DataTypes.STRING,
+      partNo: DataTypes.STRING,
       partName: DataTypes.STRING,
       customer: DataTypes.STRING,
       model: DataTypes.STRING,
