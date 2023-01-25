@@ -23,7 +23,7 @@ app.get("/", function (req, res) {
 app.get("/partno", async function (req, res) {
   try {
     const data = await db.tryoutparts.findAll()
-    res.send(data.map((e) => e.partNO))
+    res.send(data.map((e) => e.partNo))
   } catch (error) {
     res.send(error)
   }

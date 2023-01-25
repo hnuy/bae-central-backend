@@ -19,18 +19,19 @@ app.get("/", function (req, res) {
 app.get("/get/partNO", async function (req, res) {
   try {
     const data = await db.tryoutparts.findAll()
-    res.send(data.map((e) => e.dataValues).map((e) => e.partNO))
+    res.send(data)
   } catch (error) {
     res.send(error.errors[0].message)
   }
 })
 app.get("/materials", async function (req, res) {
   try {
-    const data = await db.materials.findAll()
+    const data = await db.material.findAll()
+    console.log(data);
     res.send(data)
     // res.send(data.map((e) => e.dataValues).map((e) => e.partNO))
   } catch (error) {
-    res.send(error.errors[0].message)
+    res.send(error.message)
   }
 })
 require("./routes/tryoutparts.routes")(app)
