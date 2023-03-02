@@ -1,6 +1,6 @@
 {
   "development": {
-    "host": "bauto-schema.cfnxq6b0ia8q.ap-southeast-1.rds.amazonaws.com",
+    "host": "database-1.colyn1x8xtzf.ap-southeast-1.rds.amazonaws.com",
     "username": "admin",
     "password": "Technician2020!",
     "database": "erp_schema",

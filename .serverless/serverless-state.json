@@ -127,7 +127,8 @@
                         "Effect": "Allow",
                         "Action": [
                           "logs:CreateLogStream",
-                          "logs:CreateLogGroup"
+                          "logs:CreateLogGroup",
+                          "logs:TagResource"
                         ],
                         "Resource": [
                           {
@@ -173,7 +174,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/greentag/dev/1674644273054-2023-01-25T10:57:53.054Z/greentag.zip"
+                "S3Key": "serverless/greentag/dev/1677723956950-2023-03-02T02:25:56.950Z/greentag.zip"
               },
               "Handler": "index.handler",
               "Runtime": "nodejs12.x",
@@ -191,14 +192,14 @@
               "AppLogGroup"
             ]
           },
-          "AppLambdaVersionQ7LsyiG7DJZggO6Xj98aUqwqUTtvWN9teQP1wzxMyc": {
+          "AppLambdaVersionVnr7Z9oYD6RcN0TT4TqX8DTBkCE2rK6vyUVyEoKnag": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "AppLambdaFunction"
               },
-              "CodeSha256": "vVmNJaNkyvH3cjUS2xHxV4G9OWz7i/xtqf3g6KZOTzA="
+              "CodeSha256": "9XqClLkmjy9bPBxqERGU5p2ZRLPd+OrCATdCSohtG9w="
             }
           },
           "HttpApi": {
@@ -306,7 +307,7 @@
           "AppLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "AppLambdaVersionQ7LsyiG7DJZggO6Xj98aUqwqUTtvWN9teQP1wzxMyc"
+              "Ref": "AppLambdaVersionVnr7Z9oYD6RcN0TT4TqX8DTBkCE2rK6vyUVyEoKnag"
             },
             "Export": {
               "Name": "sls-greentag-dev-AppLambdaFunctionQualifiedArn"
@@ -452,7 +453,7 @@
         "timeout": 6,
         "runtime": "nodejs12.x",
         "vpc": {},
-        "versionLogicalId": "AppLambdaVersionQ7LsyiG7DJZggO6Xj98aUqwqUTtvWN9teQP1wzxMyc"
+        "versionLogicalId": "AppLambdaVersionVnr7Z9oYD6RcN0TT4TqX8DTBkCE2rK6vyUVyEoKnag"
       }
     },
     "configValidationMode": "warn",
@@ -468,10 +469,10 @@
     },
     "layers": {},
     "isDashboardMonitoringPreconfigured": false,
-    "artifact": "C:\\Users\\hnuys\\OneDrive\\Desktop\\BAE APP\\bae-central-backend\\.serverless\\greentag.zip"
+    "artifact": "C:\\Users\\golf_\\Desktop\\work\\bae\\bae-central-backend\\.serverless\\greentag.zip"
   },
   "package": {
-    "artifactDirectoryName": "serverless/greentag/dev/1674644273054-2023-01-25T10:57:53.054Z",
+    "artifactDirectoryName": "serverless/greentag/dev/1677723956950-2023-03-02T02:25:56.950Z",
     "artifact": "greentag.zip"
   }
 }

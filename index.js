@@ -47,7 +47,7 @@ app.get("/materials", async function (req, res) {
 })
 app.post("/upload", (req, res) => {
   const filterDate = req.query.date
-  const partNO = req.query.partNO
+  const partNo = req.query.partNo
   const form = new formidable.IncomingForm()
   form.parse(req, async function (err, fields, files) {
     fs.readFile(files.file.filepath, "utf8", async (err, datafile) => {
@@ -64,37 +64,37 @@ app.post("/upload", (req, res) => {
       })
       const getTryoutParts = await db.tryoutparts.findAll()
       const result = data.map((e) => {
-        const partNO = e[7].trim()
+        const partNo = e[7].trim()
         const date = e[5].toString().split("/").reverse().join("/")
         const deliveryDate = date === filterDate ? filterDate : date
         return {
-          partNO,
+          partNo: partNo,
           partName: getTryoutParts
-            .filter((e) => e.dataValues.partNO === partNO)
+            .filter((e) => e.dataValues.partNo === partNo)
             .map((e) => e.partName)[0],
           deliveryDate,
           quantity: parseFloat(e[8], 2),
           workGroup: e[13],
           receiveArea: e[10],
           EO: getTryoutParts
-            .filter((e) => e.dataValues.partNO === partNO)
+            .filter((e) => e.dataValues.partNo === partNo)
             .map((e) => e.EO)[0],
           CL: getTryoutParts
-            .filter((e) => e.dataValues.partNO === partNO)
+            .filter((e) => e.dataValues.partNo === partNo)
             .map((e) => e.CL)[0],
         }
       })
       result.pop()
-      if (filterDate && partNO) {
+      if (filterDate && partNo) {
         res.send(
           result.filter(
-            (e) => e.deliveryDate === filterDate && e.partNO === partNO
+            (e) => e.deliveryDate === filterDate && e.partNo === partNo
           )
         )
       } else if (filterDate) {
         res.send(result.filter((e) => e.deliveryDate === filterDate))
-      } else if (partNO) {
-        res.send(result.filter((e) => e.partNO === partNO))
+      } else if (partNo) {
+        res.send(result.filter((e) => e.partNo === partNo))
       } else {
         res.send(result)
       }
