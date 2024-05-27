@@ -1,23 +1,9 @@
 {
   "development": {
-    "host": "database-1.colyn1x8xtzf.ap-southeast-1.rds.amazonaws.com",
+    "host": "database-1.c7ea4kuwewfm.ap-southeast-1.rds.amazonaws.com",
     "username": "admin",
     "password": "Technician2020!",
     "database": "erp_schema",
-    "dialect": "mysql"
-  },
-  "test": {
-    "username": "root",
-    "password": "Technician2020!",
-    "database": "erp_schema",
-    "host": "127.0.0.1",
-    "dialect": "mysql"
-  },
-  "production": {
-    "username": "root",
-    "password": null,
-    "database": "database_production",
-    "host": "127.0.0.1",
     "dialect": "mysql"
   }
 }

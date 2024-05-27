@@ -4,7 +4,7 @@ service: greentag
 
 provider:
   name: aws
-  runtime: nodejs12.x
+  runtime: nodejs16.x
   stage: dev
   region: ap-southeast-1
 

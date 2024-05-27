@@ -115,8 +115,7 @@
                   "Effect": "Allow",
                   "Action": [
                     "logs:CreateLogStream",
-                    "logs:CreateLogGroup",
-                    "logs:TagResource"
+                    "logs:CreateLogGroup"
                   ],
                   "Resource": [
                     {
@@ -162,10 +161,10 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/greentag/dev/1677723956950-2023-03-02T02:25:56.950Z/greentag.zip"
+          "S3Key": "serverless/greentag/dev/1716795249086-2024-05-27T07:34:09.086Z/greentag.zip"
         },
         "Handler": "index.handler",
-        "Runtime": "nodejs12.x",
+        "Runtime": "nodejs16.x",
         "FunctionName": "greentag-dev-app",
         "MemorySize": 1024,
         "Timeout": 6,
@@ -180,14 +179,14 @@
         "AppLogGroup"
       ]
     },
-    "AppLambdaVersionVnr7Z9oYD6RcN0TT4TqX8DTBkCE2rK6vyUVyEoKnag": {
+    "AppLambdaVersionwT0B4UOHeAOHHDb47dGSaJTUa1bBWXs0BwZUdwsLaw": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "AppLambdaFunction"
         },
-        "CodeSha256": "9XqClLkmjy9bPBxqERGU5p2ZRLPd+OrCATdCSohtG9w="
+        "CodeSha256": "yReeW72KslDlSsmZwCU5KMHLeA27pypbCekKJVzkFrE="
       }
     },
     "HttpApi": {
@@ -298,7 +297,7 @@
     "AppLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "AppLambdaVersionVnr7Z9oYD6RcN0TT4TqX8DTBkCE2rK6vyUVyEoKnag"
+        "Ref": "AppLambdaVersionwT0B4UOHeAOHHDb47dGSaJTUa1bBWXs0BwZUdwsLaw"
       },
       "Export": {
         "Name": "sls-greentag-dev-AppLambdaFunctionQualifiedArn"

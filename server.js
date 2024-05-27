@@ -1,41 +1,42 @@
-const express = require("express")
-const app = express()
+const express = require("express");
+const app = express();
 
-var bodyParser = require("body-parser")
-app.use(bodyParser.urlencoded({ extended: false }))
-app.use(bodyParser.json())
+var bodyParser = require("body-parser");
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
-var cors = require("cors")
-app.use(cors())
+var cors = require("cors");
+app.use(cors());
 
-const db = require("./model")
+const db = require("./model");
 
-db.sequelize.sync()
+db.sequelize.sync();
 
 app.get("/", function (req, res) {
-  res.send("Hello World")
-})
+  res.send("Hello World");
+});
 
 app.get("/get/partNO", async function (req, res) {
   try {
-    const data = await db.tryoutparts.findAll()
-    res.send(data)
+    const data = await db.tryoutparts.findAll();
+    res.send(data);
   } catch (error) {
-    res.send(error.errors[0].message)
+    res.send(error.errors[0].message);
   }
-})
+});
 app.get("/materials", async function (req, res) {
   try {
-    const data = await db.material.findAll()
-    console.log(data);
-    res.send(data)
+    const data = await db.material.findAll({
+      raw: true,
+    });
+    res.send(data);
     // res.send(data.map((e) => e.dataValues).map((e) => e.partNO))
   } catch (error) {
-    res.send(error.message)
+    res.send(error.message);
   }
-})
-require("./routes/tryoutparts.routes")(app)
+});
+require("./routes/tryoutparts.routes")(app);
 
 app.listen(3004, (req, res) => {
-  console.log("Server is up and listening on 3004")
-})
+  console.log("Server is up and listening on 3004");
+});
