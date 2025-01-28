@@ -1,81 +1,82 @@
-const db = require("../model")
-const fs = require("fs")
-var formidable = require("formidable")
+const db = require("../model");
+const fs = require("fs");
+var formidable = require("formidable");
 
 exports.upload = async (req, res) => {
-  const filterDate = req.query.date
-  const partNO = req.query.partNO
-  const form = new formidable.IncomingForm()
+  const filterDate = req.query.date;
+  const partNo = req.query.partNo;
+  const form = new formidable.IncomingForm();
   form.parse(req, async function (err, fields, files) {
     fs.readFile(files.file.filepath, "utf8", async (err, datafile) => {
       if (err) {
-        console.error(err)
-        return
+        console.error(err);
+        return;
       }
-      const rows = datafile.split("\n")
-      rows.pop()
-      const convertArr = await processLineByLine(rows)
+      const rows = datafile.split("\n");
+      rows.pop();
+      const convertArr = await processLineByLine(rows);
       const data = convertArr.map((e) => {
-        const result = e.split("|")
-        return result
-      })
-      const getTryoutParts = await db.tryoutparts.findAll()
+        const result = e.split("|");
+        return result;
+      });
+      const getTryoutParts = await db.tryoutparts.findAll();
       const result = data.map((e) => {
-        const partNO = e[7].trim()
-        const date = e[5].toString().split("/").reverse().join("/")
-        const deliveryDate = date === filterDate ? filterDate : date
+        const partNo = e[7].trim();
+        const date = e[5].toString().split("/").reverse().join("/");
+        const deliveryDate = date === filterDate ? filterDate : date;
         return {
-          partNO,
+          partNo: partNo,
           partName: getTryoutParts
-            .filter((e) => e.dataValues.partNO === partNO)
+            .filter((e) => e.dataValues.partNo === partNo)
             .map((e) => e.partName)[0],
           deliveryDate,
           quantity: parseFloat(e[8], 2),
           workGroup: e[13],
           receiveArea: e[10],
           EO: getTryoutParts
-            .filter((e) => e.dataValues.partNO === partNO)
+            .filter((e) => e.dataValues.partNo === partNo)
             .map((e) => e.EO)[0],
           CL: getTryoutParts
-            .filter((e) => e.dataValues.partNO === partNO)
+            .filter((e) => e.dataValues.partNo === partNo)
             .map((e) => e.CL)[0],
-        }
-      })
-      result.pop()
-      if (filterDate && partNO) {
+          event: e[e.length - 2],
+        };
+      });
+      result.pop();
+      if (filterDate && partNo) {
         res.send(
           result.filter(
-            (e) => e.deliveryDate === filterDate && e.partNO === partNO
+            (e) => e.deliveryDate === filterDate && e.partNo === partNo
           )
-        )
+        );
       } else if (filterDate) {
-        res.send(result.filter((e) => e.deliveryDate === filterDate))
-      } else if (partNO) {
-        res.send(result.filter((e) => e.partNO === partNO))
+        res.send(result.filter((e) => e.deliveryDate === filterDate));
+      } else if (partNo) {
+        res.send(result.filter((e) => e.partNo === partNo));
       } else {
-        res.send(result)
+        res.send(result);
       }
-    })
-  })
-}
+    });
+  });
+};
 const processLineByLine = async (rows) => {
-  let arr = []
+  let arr = [];
   for (const line of rows) {
-    arr.push(line)
+    arr.push(line);
   }
-  return arr
-}
+  return arr;
+};
 
 exports.insertMat = async (req, res) => {
   try {
     const data = await db.tryoutparts.create({
-      partNO: req.body.partNO,
+      partNo: req.body.addPartNO,
       partName: req.body.partName,
       EO: req.body.EO,
       CL: req.body.CL,
-    })
-    res.send(data)
+    });
+    res.send(data);
   } catch (error) {
-    res.send(error.errors[0].message)
+    res.send(error.errors[0].message);
   }
-}
+};

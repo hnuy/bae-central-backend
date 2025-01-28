@@ -82,6 +82,7 @@ app.post("/upload", (req, res) => {
           CL: getTryoutParts
             .filter((e) => e.dataValues.partNo === partNo)
             .map((e) => e.CL)[0],
+          event: e[e.length - 2],
         };
       });
       result.pop();
@@ -100,6 +101,15 @@ app.post("/upload", (req, res) => {
       }
     });
   });
+});
+app.post("/createMat", async (req, res) => {
+  const data = await db.tryoutparts.create({
+    partNo: req.body.addPartNO,
+    partName: req.body.partName,
+    EO: req.body.EO,
+    CL: req.body.CL,
+  });
+  res.send(data);
 });
 const processLineByLine = async (rows) => {
   let arr = [];

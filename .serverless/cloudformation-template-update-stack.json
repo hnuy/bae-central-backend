@@ -161,7 +161,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/greentag/dev/1716795249086-2024-05-27T07:34:09.086Z/greentag.zip"
+          "S3Key": "serverless/greentag/dev/1738032893359-2025-01-28T02:54:53.359Z/greentag.zip"
         },
         "Handler": "index.handler",
         "Runtime": "nodejs16.x",
@@ -179,14 +179,14 @@
         "AppLogGroup"
       ]
     },
-    "AppLambdaVersionwT0B4UOHeAOHHDb47dGSaJTUa1bBWXs0BwZUdwsLaw": {
+    "AppLambdaVersionW1rtN4WTddQqq7iI0qSKc6jSPpfacK7ShE5hQadqU": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "AppLambdaFunction"
         },
-        "CodeSha256": "yReeW72KslDlSsmZwCU5KMHLeA27pypbCekKJVzkFrE="
+        "CodeSha256": "4MDFnWC764x9K1G/csv/D/6Nn22XjUogwkLA2tT/xFw="
       }
     },
     "HttpApi": {
@@ -297,7 +297,7 @@
     "AppLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "AppLambdaVersionwT0B4UOHeAOHHDb47dGSaJTUa1bBWXs0BwZUdwsLaw"
+        "Ref": "AppLambdaVersionW1rtN4WTddQqq7iI0qSKc6jSPpfacK7ShE5hQadqU"
       },
       "Export": {
         "Name": "sls-greentag-dev-AppLambdaFunctionQualifiedArn"

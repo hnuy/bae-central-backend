@@ -1,4 +1,4 @@
-const tryoutparts = require("../controller/tryoutparts.controller")
+const tryoutparts = require("../controller/tryoutparts.controller");
 
 module.exports = (app) => {
   app.use((req, res, next) => {
@@ -9,9 +9,9 @@ module.exports = (app) => {
       "GET,HEAD,OPTIONS,POST,PUT",
       "Access-Control-Allow-Headers",
       "Origin, X-Requested-With, Content-Type, Accept, Authorization"
-    )
-    next()
-  })
-  app.post("/get/upload", tryoutparts.upload)
-  app.post("/post/createMat", tryoutparts.insertMat)
-}
+    );
+    next();
+  });
+  app.post("/upload", tryoutparts.upload);
+  app.post("/createMat", tryoutparts.insertMat);
+};

@@ -2,7 +2,7 @@
   "development": {
     "host": "database-1.c7ea4kuwewfm.ap-southeast-1.rds.amazonaws.com",
     "username": "admin",
-    "password": "Technician2020!",
+    "password": "Technician2020!!",
     "database": "erp_schema",
     "dialect": "mysql"
   }
